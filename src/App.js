@@ -70,10 +70,22 @@ const App = props => {
     });
   }
 
+  const style = {
+    backgroundColor: "white",
+    font: "inherit",
+    border: "1px solid blue",
+    padding: "8px",
+    cursor: "pointer"
+  };
+
   return (
     <div className="App">
       <h1>Empty Template</h1>
-      <button onClick={() => switchNameHandler("GGGGG NAME")}>Switch Name</button> 
+      <button 
+        style={style}
+        onClick={() => switchNameHandler("GGGGG NAME")}>
+          Switch Name
+      </button> 
       {/* DO NOT USE ARROW FUNCTION IT'S NOT EFFICIENT */}
       <Person 
         name={personsState.persons[0].name} 
