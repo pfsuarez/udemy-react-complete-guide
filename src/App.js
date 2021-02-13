@@ -2,7 +2,9 @@ import './App.css';
 
 function App() {
   return (
-    <h1>Empty Template</h1>
+    <div className="App">
+      <h1>Empty Template</h1>
+    </div>
   );
 }
 
