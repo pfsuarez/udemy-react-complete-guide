@@ -50,10 +50,10 @@ const App = props => {
 
   console.log(personsState, otherState);
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (newName) => {
     setPersonState({
       persons: [
-        { name: "Another name", age: 25 },
+        { name: newName, age: 25 },
         { name: "MMMMM", age: 25 },
         { name: "ZZ NAME", age: 27 }
       ]
@@ -63,10 +63,19 @@ const App = props => {
   return (
     <div className="App">
       <h1>Empty Template</h1>
-      <button onClick={switchNameHandler}>Switch Name</button>
-      <Person name={personsState.persons[0].name} age={personsState.persons[0].age} />
-      <Person name={personsState.persons[1].name} age={personsState.persons[1].age} />
-      <Person name={personsState.persons[2].name} age={personsState.persons[2].age} />
+      <button onClick={() => switchNameHandler("GGGGG NAME")}>Switch Name</button> 
+      {/* DO NOT USE ARROW FUNCTION IT'S NOT EFFICIENT */}
+      <Person 
+        name={personsState.persons[0].name} 
+        age={personsState.persons[0].age} />
+      <Person 
+        click={switchNameHandler.bind(this, "RRRR")}
+        name={personsState.persons[1].name} 
+        age={personsState.persons[1].age}>My Hobbies: Rugby
+      </Person>
+      <Person 
+        name={personsState.persons[2].name} 
+        age={personsState.persons[2].age} />
     </div>
   );
 }
