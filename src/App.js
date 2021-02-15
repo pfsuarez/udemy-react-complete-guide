@@ -1,10 +1,22 @@
-//import React, { Component } from 'react';
 import React, { useState } from 'react';
-
-import Radium, {StyleRoot} from "radium";
+import styled from "styled-components";
 
 import './App.css';
 import Person from "./Person/Person";
+
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? "red" : "green"};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: ${props => props.alt ? "salmon": "lightgreen"};
+    color: black;
+  }
+`;
 
 // BASED CLASS APP
 // class App extends Component {
@@ -47,7 +59,7 @@ const App = props => {
       { id: 'k2', name: "MMMMM", age: 25 },
       { id: 'k3', name: "ZZZZZ", age: 27 }
     ],
-    showPerson: false
+    showPersons: false
   });
 
   const [otherState, setOtherState] = useState('some other state');
@@ -69,10 +81,10 @@ const App = props => {
   };
 
   const togglePersonHandler = () => {
-    const doesShow = personsState.showPerson;
+    const doesShow = personsState.showPersons;
     setPersonState({
       persons: personsState.persons,
-      showPerson: !doesShow
+      showPersons: !doesShow
     });
   };
 
@@ -83,26 +95,13 @@ const App = props => {
 
     setPersonState({
       persons: persons,
-      showPerson: personsState.showPerson
+      showPersons: personsState.showPersons
     })
-  };
-
-  const style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ":hover": {
-      backgroundColor: "lightgreen",
-      color:"black"
-    }
   };
 
   let persons = null;
 
-  if (personsState.showPerson) {
+  if (personsState.showPersons) {
     persons = (
       <div>
         {personsState.persons.map((person, index) => {
@@ -115,12 +114,6 @@ const App = props => {
         })}
       </div>
     );
-
-    style.backgroundColor = "red";
-    style[":hover"] = {
-      backgroundColor: "salmon",
-      color: "black"
-    };
   }
 
   const classes = [];
@@ -132,19 +125,17 @@ const App = props => {
   }
 
   return (
-    <StyleRoot>
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(" ")}>This is really working!</p>
-        <button
-          style={style}
-          onClick={togglePersonHandler}>
-          Toggle Person
-        </button>
-        {persons}
-      </div>
-    </StyleRoot>
+    <div className="App">
+      <h1>Hi, I'm a React App</h1>
+      <p className={classes.join(" ")}>This is really working!</p>
+      <StyledButton
+        alt={personsState.showPersons}
+        onClick={togglePersonHandler}>
+        Toggle Person
+      </StyledButton>
+      {persons}
+    </div>
   );
 }
 
-export default Radium(App);
+export default App;
