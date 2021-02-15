@@ -38,7 +38,7 @@ import Person from "./Person/Person";
 
 //
 const App = props => {
-  const [ personsState, setPersonState ] = useState({
+  const [personsState, setPersonState] = useState({
     persons: [
       { id: 'k1', name: "Max", age: 23 },
       { id: 'k2', name: "MMMMM", age: 25 },
@@ -49,14 +49,20 @@ const App = props => {
 
   const [otherState, setOtherState] = useState('some other state');
 
-  const nameChangedHandler = (event) => {
-    setPersonState({
-      persons: [
-        { name: "Max", age: 25 },
-        { name: event.target.value, age: 25 },
-        { name: "ZZ NAME", age: 27 }
-      ]
-    });
+  const nameChangedHandler = (event, id) => {
+    const personIndex = personsState.persons.findIndex(x => x.id === id);
+    const person = {
+      ...personsState.persons[personIndex]
+    };
+
+    person.name = event.target.value;
+
+    const persons = [...personsState.persons];
+    persons[personIndex] = person;
+
+    const state = { ...personsState, persons };
+
+    setPersonState(state);
   };
 
   const togglePersonHandler = () => {
@@ -88,15 +94,16 @@ const App = props => {
 
   let persons = null;
 
-  if(personsState.showPerson) {
+  if (personsState.showPerson) {
     persons = (
       <div>
         {personsState.persons.map((person, index) => {
-          return <Person 
-                    click={deletePersonHandler.bind(this, index)}
-                    name={person.name} 
-                    age={person.age}
-                    key={person.id} />
+          return <Person
+            click={deletePersonHandler.bind(this, index)}
+            name={person.name}
+            age={person.age}
+            key={person.id}
+            changed={(event) => nameChangedHandler(event, person.id)} />
         })}
       </div>
     );
@@ -105,11 +112,11 @@ const App = props => {
   return (
     <div className="App">
       <h1>Empty Template</h1>
-      <button 
+      <button
         style={style}
         onClick={togglePersonHandler}>
-          Toggle Person
-      </button> 
+        Toggle Person
+      </button>
       {persons}
     </div>
   );
