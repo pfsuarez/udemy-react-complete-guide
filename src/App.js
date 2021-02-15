@@ -92,6 +92,27 @@ const App = props => {
     cursor: "pointer"
   };
 
+  let persons = null;
+
+  if(personsState.showPerson) {
+    persons = (
+      <div>
+        <Person 
+          name={personsState.persons[0].name} 
+          age={personsState.persons[0].age} />
+        <Person 
+          click={switchNameHandler.bind(this, "RRRR")}
+          changed={nameChangedHandler}
+          name={personsState.persons[1].name} 
+          age={personsState.persons[1].age}>My Hobbies: Rugby
+        </Person>
+        <Person 
+          name={personsState.persons[2].name} 
+          age={personsState.persons[2].age} />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <h1>Empty Template</h1>
@@ -100,23 +121,7 @@ const App = props => {
         onClick={togglePersonHandler}>
           Toggle Person
       </button> 
-      {
-        personsState.showPerson ?
-          <div>
-            <Person 
-              name={personsState.persons[0].name} 
-              age={personsState.persons[0].age} />
-            <Person 
-              click={switchNameHandler.bind(this, "RRRR")}
-              changed={nameChangedHandler}
-              name={personsState.persons[1].name} 
-              age={personsState.persons[1].age}>My Hobbies: Rugby
-            </Person>
-            <Person 
-              name={personsState.persons[2].name} 
-              age={personsState.persons[2].age} />
-          </div> : null
-      }
+      {persons}
     </div>
   );
 }
