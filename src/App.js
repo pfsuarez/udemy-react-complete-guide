@@ -43,7 +43,8 @@ const App = props => {
       { name: "Max", age: 23 },
       { name: "MMMMM", age: 25 },
       { name: "ZZZZZ", age: 27 }
-    ]
+    ],
+    showPerson: false
   });
 
   const [otherState, setOtherState] = useState('some other state');
@@ -68,7 +69,20 @@ const App = props => {
         { name: "ZZ NAME", age: 27 }
       ]
     });
-  }
+  };
+
+  const togglePersonHandler = () => {
+    console.log("");
+    const doesShow = personsState.showPerson;
+    setPersonState({
+      persons: [
+        { name: "Max", age: 23 },
+        { name: "MMMMM", age: 25 },
+        { name: "ZZZZZ", age: 27 }
+      ],
+      showPerson: !doesShow
+    });
+  };
 
   const style = {
     backgroundColor: "white",
@@ -83,22 +97,26 @@ const App = props => {
       <h1>Empty Template</h1>
       <button 
         style={style}
-        onClick={() => switchNameHandler("GGGGG NAME")}>
-          Switch Name
+        onClick={togglePersonHandler}>
+          Toggle Person
       </button> 
-      {/* DO NOT USE ARROW FUNCTION IT'S NOT EFFICIENT */}
-      <Person 
-        name={personsState.persons[0].name} 
-        age={personsState.persons[0].age} />
-      <Person 
-        click={switchNameHandler.bind(this, "RRRR")}
-        changed={nameChangedHandler}
-        name={personsState.persons[1].name} 
-        age={personsState.persons[1].age}>My Hobbies: Rugby
-      </Person>
-      <Person 
-        name={personsState.persons[2].name} 
-        age={personsState.persons[2].age} />
+      {
+        personsState.showPerson ?
+          <div>
+            <Person 
+              name={personsState.persons[0].name} 
+              age={personsState.persons[0].age} />
+            <Person 
+              click={switchNameHandler.bind(this, "RRRR")}
+              changed={nameChangedHandler}
+              name={personsState.persons[1].name} 
+              age={personsState.persons[1].age}>My Hobbies: Rugby
+            </Person>
+            <Person 
+              name={personsState.persons[2].name} 
+              age={personsState.persons[2].age} />
+          </div> : null
+      }
     </div>
   );
 }
