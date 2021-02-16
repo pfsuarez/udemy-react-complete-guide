@@ -6,6 +6,11 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from "../components/Persons/Persons";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log("[App.js | Constructor}");
+  }
+
   state = {
     persons: [
       { id: 'k1', name: "Max", age: 23 },
@@ -14,6 +19,19 @@ class App extends Component {
     ],
     showPersons: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("[App.js | getDerivedStateFromProps]", props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log("[App.js | ComponentDidMount]");
+  }
+
+  // componentWillMount() {
+  //   console.log("[App.js | ComponentWillMount]");
+  // }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(x => x.id === id);
@@ -29,7 +47,7 @@ class App extends Component {
     const state = { ...this.state, persons };
 
     this.setState(state);
-  };
+  }
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
@@ -37,7 +55,7 @@ class App extends Component {
       ...this.state,
       showPersons: !doesShow
     });
-  };
+  }
 
   deletePersonHandler = personIndex => {
     const persons = [...this.state.persons];
@@ -47,9 +65,10 @@ class App extends Component {
       ...this.state,
       persons
     })
-  };
+  }
 
   render() {
+    console.log("[App.js | Render]");
     let persons = null;
 
     if (this.state.showPersons) {

@@ -21,6 +21,7 @@ const Person = (props) => {
         }
     };
 
+    console.log("[Person.js | Rendering...]");
     return (
         <StyleDiv>
             <p onClick={props.click}>Name: {props.name} Age: {props.age} years old!</p>
