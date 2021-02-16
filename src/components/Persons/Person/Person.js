@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from "styled-components";
+import Aux from "../../../hoc/Auxiliary";
 
 const StyleDiv = styled.div`
         width:60%;
@@ -42,11 +43,11 @@ class Person extends Component {
 
         console.log("[Person.js | Rendering...]");
         return (
-            <StyleDiv>
+            <Fragment>
                 <p onClick={this.props.click}>Name: {this.props.name} Age: {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input type="text" onChange={this.props.changed} value={this.props.name}></input>
-            </StyleDiv>
+            </Fragment>
         );
     }
 }
