@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import styled from "styled-components";
 
 const StyleDiv = styled.div`
@@ -13,22 +14,41 @@ const StyleDiv = styled.div`
         }
 `;
 
-const Person = (props) => {
-    
-    const style = {
-        "@media (min-width: 500px)" : {
-            width:"400px"
-        }
-    };
+class Person extends Component {
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log("[Person.js | getDerivedStateFromProps]", props);
+    //     return state;
+    // }
 
-    console.log("[Person.js | Rendering...]");
-    return (
-        <StyleDiv>
-            <p onClick={props.click}>Name: {props.name} Age: {props.age} years old!</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}></input>
-        </StyleDiv>
-    );
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log("[Person.js | shouldComponentUpdate]", nextProps);
+    //     return true;
+    // }
+
+    // getSnapshotBeforeUpdate(prevProps, prevState) {
+    //     console.log("[Person.js | getSnapshotBeforeUpdate]", prevProps);
+    // }
+
+    // componentDidUpdate() {
+    //     console.log("[Person.js | componentDidUpdate]", prevProps);
+    // }
+
+    render() {
+        const style = {
+            "@media (min-width: 500px)": {
+                width: "400px"
+            }
+        };
+
+        console.log("[Person.js | Rendering...]");
+        return (
+            <StyleDiv>
+                <p onClick={this.props.click}>Name: {this.props.name} Age: {this.props.age} years old!</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name}></input>
+            </StyleDiv>
+        );
+    }
 }
 
 export default Person;
