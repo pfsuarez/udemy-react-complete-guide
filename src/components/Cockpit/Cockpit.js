@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import './Cockpit.css';
 
@@ -11,33 +11,40 @@ const StyledButton = styled.button`
   cursor: pointer;
   
   &:hover {
-    background-color: ${props => props.alt ? "salmon": "lightgreen"};
+    background-color: ${props => props.alt ? "salmon" : "lightgreen"};
     color: black;
   }
 `;
 
-class Cockpit extends Component {
-    render() {
-        const classes = [];
-        if(this.props.totalPersons <= 2) {
-            classes.push("red"); //classes = ["red"]
-        }
-        if(this.props.totalPersons <= 1) {
-            classes.push("bold"); //classes = ["red", "bold"]
-        }
-    
-        return (
-            <div className="Cockpit">
-                <h1>{this.props.title}</h1>
-                <p className={classes.join(" ")}>This is really working!</p>
-                <StyledButton
-                    alt={this.props.showPersons}
-                    onClick={this.props.clicked}>
-                    Toggle Person
-                </StyledButton>
-            </div>
-        );
+const Cockpit = props => {
+    useEffect(() => {
+        console.log("[Cockpit.js | useEffect]");
+
+        setTimeout(() => {
+            alert('Saved data to Cloud!');
+        }, 1000);
+    }, []); // [props.persons]
+
+
+    const classes = [];
+    if (props.totalPersons <= 2) {
+        classes.push("red"); //classes = ["red"]
     }
+    if (props.totalPersons <= 1) {
+        classes.push("bold"); //classes = ["red", "bold"]
+    }
+
+    return (
+        <div className="Cockpit">
+            <h1>{props.title}</h1>
+            <p className={classes.join(" ")}>This is really working!</p>
+            <StyledButton
+                alt={props.showPersons}
+                onClick={props.clicked}>
+                Toggle Person
+                </StyledButton>
+        </div>
+    );
 };
 
 export default Cockpit;
