@@ -34,18 +34,22 @@ class Person extends Component {
     //     console.log("[Person.js | getSnapshotBeforeUpdate]", prevProps);
     // }
 
-    // componentDidUpdate() {
-    //     console.log("[Person.js | componentDidUpdate]", prevProps);
-    // }
+    componentDidUpdate() {
+        console.log("[Person.js | componentDidUpdate]");
+        console.log("", this.context);
+    }
 
     constructor(props) {
         super(props);
         this.inputElementRef = React.createRef();
     }
 
+    static contextType = AuthContext;
+
     componentDidMount() {
         //this.inputElement.focus();
         this.inputElementRef.current.focus();
+        console.log("", this.context);
     }
 
     render() {
@@ -58,12 +62,12 @@ class Person extends Component {
         console.log("[Person.js | Rendering...]");
         return (
             <Fragment>
-                <AuthContext.Consumer>
+                {/* <AuthContext.Consumer>
                     {context =>
                         context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>
                     }
-                </AuthContext.Consumer>
-
+                </AuthContext.Consumer> */}
+                {this.context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>}
                 <p onClick={this.props.click}>Name: {this.props.name} Age: {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input
