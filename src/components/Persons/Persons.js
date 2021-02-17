@@ -34,8 +34,9 @@ class Persons extends Component {
                     name={person.name}
                     age={person.age}
                     key={person.id}
-                    changed={(event) => this.props.changed(event, person.id)} />
+                    changed={(event) => this.props.changed(event, person.id)}/>
             })
+
         );
     };
 }

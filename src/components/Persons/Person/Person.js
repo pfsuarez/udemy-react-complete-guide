@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Aux from "../../../hoc/Auxiliary";
 import withClass from '../../../hoc/WithClass';
+import AuthContext from "../../../context/auth-context";
 
 const StyleDiv = styled.div`
         width:60%;
@@ -57,11 +58,17 @@ class Person extends Component {
         console.log("[Person.js | Rendering...]");
         return (
             <Fragment>
+                <AuthContext.Consumer>
+                    {context =>
+                        context.authenticated ? <p>Authenticated!</p> : <p>Please Log In</p>
+                    }
+                </AuthContext.Consumer>
+
                 <p onClick={this.props.click}>Name: {this.props.name} Age: {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
-                <input 
-                    type="text" 
-                    onChange={this.props.changed} 
+                <input
+                    type="text"
+                    onChange={this.props.changed}
                     value={this.props.name}
                     // ref={(inputEl) => {this.inputElement = inputEl}}
                     ref={this.inputElementRef}
