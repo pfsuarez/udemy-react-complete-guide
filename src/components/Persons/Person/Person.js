@@ -37,6 +37,16 @@ class Person extends Component {
     //     console.log("[Person.js | componentDidUpdate]", prevProps);
     // }
 
+    constructor(props) {
+        super(props);
+        this.inputElementRef = React.createRef();
+    }
+
+    componentDidMount() {
+        //this.inputElement.focus();
+        this.inputElementRef.current.focus();
+    }
+
     render() {
         const style = {
             "@media (min-width: 500px)": {
@@ -49,7 +59,14 @@ class Person extends Component {
             <Fragment>
                 <p onClick={this.props.click}>Name: {this.props.name} Age: {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}></input>
+                <input 
+                    type="text" 
+                    onChange={this.props.changed} 
+                    value={this.props.name}
+                    // ref={(inputEl) => {this.inputElement = inputEl}}
+                    ref={this.inputElementRef}
+                >
+                </input>
             </Fragment>
         );
     }
