@@ -15,7 +15,7 @@ class BugerBuilder extends Component {
     render() {
         return (
             <Aux>
-                <Burger />
+                <Burger ingredients={this.state.ingredients} />
                 <div>Build Controls</div>
             </Aux>
         );
