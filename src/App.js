@@ -1,11 +1,15 @@
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Empty Template</h1>
-    </div>
-  );
+import Blog from './containers/Blog/Blog';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Blog />
+      </div>
+    );
+  }
 }
 
 export default App;
