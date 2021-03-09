@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../axios-orders";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import Burger from "../../components/Burger/Burger"
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -152,4 +153,4 @@ class BugerBuilder extends Component {
     }
 }
 
-export default BugerBuilder;
+export default withErrorHandler(BugerBuilder, axios);
