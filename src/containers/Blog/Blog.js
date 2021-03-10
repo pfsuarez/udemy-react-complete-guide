@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import Posts from "./Posts/Posts";
 import FullPost from "./FullPost/FullPost";
 import NewPost from "./NewPost/NewPost";
@@ -12,14 +12,14 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><NavLink 
-                                    to="/" 
-                                    exact
-                                    activeClassName="my-active"
-                                    activeStyle={{
-                                        color: '#fa923f',
-                                        textDecoration: 'underline'
-                                    }}>Home</NavLink></li>
+                            <li><NavLink
+                                to="/"
+                                exact
+                                activeClassName="my-active"
+                                activeStyle={{
+                                    color: '#fa923f',
+                                    textDecoration: 'underline'
+                                }}>Home</NavLink></li>
                             <li><NavLink to={
                                 {
                                     pathname: '/new-post',
@@ -32,8 +32,10 @@ class Blog extends Component {
                 </header>
                 {/* <Route path="/" exact render={() => <h1>Home</h1>} /> */}
                 <Route path="/" exact component={Posts} />
-                <Route path="/new-post" exact component={NewPost} />
-                <Route path="/:id" exact component={FullPost} />
+                <Switch>
+                    <Route path="/new-post" exact component={NewPost} />
+                    <Route path="/:id" exact component={FullPost} />
+                </Switch>
                 {/* <section>
                     <FullPost id={this.state.selectedPostId} />
                 </section>*/}
