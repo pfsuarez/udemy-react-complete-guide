@@ -7,7 +7,6 @@ const instance =  axios.create({
 instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
 
 instance.interceptors.request.use(request => {
-    console.log("Axios Instance Request:", request);
     return request;
 });
 
