@@ -32,7 +32,6 @@ class Posts extends Component {
 
     render() {
         let posts = this.state.posts.map(post => {
-            console.log("PST", post);
             return (
                 <Link to={'/' + post.id} key={post.id}>
                     <Post
@@ -42,7 +41,6 @@ class Posts extends Component {
                 </Link>);
         });
 
-        console.log("POSTS", posts);
         return (
             <section className="Posts">
                 {posts}
