@@ -6,7 +6,6 @@ class Course extends Component {
     };
 
     componentDidMount() {
-        console.log("", this.props);
         const searchParams = new URLSearchParams(this.props.location.search);
 
         const title = searchParams.getAll("course-title");
