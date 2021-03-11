@@ -93,33 +93,34 @@ class BugerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({ loading: true });
+        // this.setState({ loading: true });
 
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Pepe',
-                address: {
-                    street: 'AY100',
-                    zipCode: '001',
-                    country: 'AR'
-                },
-                email: 'pepe@mail.com'
-            },
-            deliveryMethod: 'fastest'
-        };
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Pepe',
+        //         address: {
+        //             street: 'AY100',
+        //             zipCode: '001',
+        //             country: 'AR'
+        //         },
+        //         email: 'pepe@mail.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // };
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log("Order Response:", response);
-            })
-            .catch(error => {
-                console.log("Order Error:", error)
-            })
-            .finally(() => {
-                this.setState({ loading: false, purchasing: false });
-            });
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         console.log("Order Response:", response);
+        //     })
+        //     .catch(error => {
+        //         console.log("Order Error:", error)
+        //     })
+        //     .finally(() => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     });
+        this.props.history.push("/checkout");
     };
 
     render() {
