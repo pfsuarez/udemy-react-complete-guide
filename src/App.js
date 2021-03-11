@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import { BrowserRouter, NavLink } from 'react-router-dom';
 
 import "./App.css";
@@ -27,6 +27,7 @@ class App extends Component {
           <Switch>
             <Route path="/courses" component={Courses} />
             <Route path="/users" component={Users} />
+            <Redirect from="/all-courses" to="/courses" />
             <Route render={() => <h1>404 Not Found</h1>} />
           </Switch>
           <ol style={{ textAlign: 'left' }}>
@@ -37,7 +38,7 @@ class App extends Component {
             <li>5: Pass the course title to the "Course" page - pass it as a param or score bonus points by passing it as query params (you need to manually parse them though!)</li>
             <li>6: Load the "Course" component as a nested component of "Courses"</li>
             <li>7: Add a 404 error page and render it for any unknown routes</li>
-            <li>Redirect requests to /all-courses to /courses (Your "Courses" page)</li>
+            <li>8: Redirect requests to /all-courses to /courses (Your "Courses" page)</li>
           </ol>
         </div>
       </BrowserRouter>
