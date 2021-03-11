@@ -6,11 +6,20 @@ class Course extends Component {
     };
 
     componentDidMount() {
-        const searchParams = new URLSearchParams(this.props.location.search);
+        this.loadTitle();
+    }
 
+    componentDidUpdate() {
+        this.loadTitle();
+    }
+
+    loadTitle() {
+        const searchParams = new URLSearchParams(this.props.location.search);
         const title = searchParams.getAll("course-title");
 
-        this.setState({title});
+        if(this.state.title != title[0]) {
+            this.setState({title: title[0]});
+        }
     }
     render() {
         return (
