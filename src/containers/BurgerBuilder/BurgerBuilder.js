@@ -30,8 +30,8 @@ class BugerBuilder extends Component {
             .then(res => {
                 this.setState({ ingredients: res.data });
             })
-            .catch(err => { 
-                this.setState({error: true});
+            .catch(err => {
+                this.setState({ error: true });
             });
     }
 
@@ -120,7 +120,17 @@ class BugerBuilder extends Component {
         //     .finally(() => {
         //         this.setState({ loading: false, purchasing: false });
         //     });
-        this.props.history.push("/checkout");
+        const queryParams = [];
+        for (const i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: "/checkout",
+            search: '?' + queryString
+        });
     };
 
     render() {
@@ -133,9 +143,9 @@ class BugerBuilder extends Component {
         }
 
         let orderSummary = null;
-        let burger = this.state.error 
-                    ? <p>Ingredients can't be loaded</p>
-                    : <Spinner />
+        let burger = this.state.error
+            ? <p>Ingredients can't be loaded</p>
+            : <Spinner />
 
         if (this.state.ingredients) {
             burger = (
