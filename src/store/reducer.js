@@ -1,11 +1,14 @@
 const initialState = {
-    counter: 0
+    counter: 0,
+    results: []
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'INCREMENT':
+            const newState = Object.assign({}, state); //clone object in inmutable way
             return {
+                ...state, //spread operator
                 counter: state.counter + 1
             };
         case 'DECREMENT':
@@ -15,11 +18,18 @@ const reducer = (state = initialState, action) => {
             };
         case 'ADD':
             return {
+                ...state,
                 counter: state.counter + action.val
             };
         case 'SUBTRACT':
             return {
+                ...state,
                 counter: state.counter - action.val
+            };
+        case 'STORE_RESULT':
+            return {
+                ...state,
+                results: state.results.concat({ id: new Date(), value: state.counter })
             };
     }
     return state;
