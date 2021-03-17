@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import * as actionTypes from "../../store/actions";
+
 import axios from "../../axios-orders";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
@@ -7,6 +11,7 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
+
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -17,7 +22,7 @@ const INGREDIENT_PRICES = {
 
 class BugerBuilder extends Component {
     state = {
-        ingredients: null,
+        //ingredients: null,
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
@@ -94,7 +99,7 @@ class BugerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         const queryParams = [];
-        for (const i in this.state.ingredients) {
+        for (const i in this.props.ings) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
 
@@ -110,7 +115,7 @@ class BugerBuilder extends Component {
 
     render() {
         const disabledInfo = {
-            ...this.state.ingredients
+            ...this.props.ings
         };
 
         for (const key in disabledInfo) {
@@ -122,21 +127,21 @@ class BugerBuilder extends Component {
             ? <p>Ingredients can't be loaded</p>
             : <Spinner />
 
-        if (this.state.ingredients) {
+        if (this.props.ings) {
             burger = (
                 <Aux>
-                    <Burger ingredients={this.state.ingredients} />
+                    <Burger ingredients={this.props.ings} />
                     <BuildControls
                         price={this.state.totalPrice}
-                        ingredientAdded={this.addIngredientHandler}
-                        ingredientRemoved={this.removeIngredientHandler}
+                        ingredientAdded={this.props.onIngredientAdded}
+                        ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         ordered={this.purchaseHandler} />
                 </Aux>);
 
             orderSummary = <OrderSummary
-                ingredients={this.state.ingredients}
+                ingredients={this.props.ings}
                 price={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
@@ -157,4 +162,18 @@ class BugerBuilder extends Component {
     }
 }
 
-export default withErrorHandler(BugerBuilder, axios);
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingrName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingrName}),
+        onIngredientRemoved: (ingrName) => dispatch({type:actionTypes.REMOVE_INGREDIENT, ingredientName: ingrName})
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BugerBuilder, axios));
