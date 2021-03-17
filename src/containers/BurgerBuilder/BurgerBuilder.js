@@ -38,7 +38,7 @@ class BugerBuilder extends Component {
                 return sum + el;
             }, 0);
 
-        return sum > 0 ;
+        return sum > 0;
     }
 
     purchaseHandler = () => {
@@ -50,19 +50,7 @@ class BugerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        const queryParams = [];
-        for (const i in this.props.ings) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-
-        queryParams.push('price=' + this.props.price);
-
-        const queryString = queryParams.join('&');
-
-        this.props.history.push({
-            pathname: "/checkout",
-            search: '?' + queryString
-        });
+        this.props.history.push('/checkout');
     };
 
     render() {
@@ -123,8 +111,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingrName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingrName}),
-        onIngredientRemoved: (ingrName) => dispatch({type:actionTypes.REMOVE_INGREDIENT, ingredientName: ingrName})
+        onIngredientAdded: (ingrName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingrName }),
+        onIngredientRemoved: (ingrName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingrName })
     };
 }
 
