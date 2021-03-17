@@ -14,7 +14,6 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 class BugerBuilder extends Component {
     state = {
-        purchasable: false,
         purchasing: false,
         loading: false,
         error: false
@@ -39,7 +38,7 @@ class BugerBuilder extends Component {
                 return sum + el;
             }, 0);
 
-        this.setState({ purchasable: sum > 0 })
+        return sum > 0 ;
     }
 
     purchaseHandler = () => {
@@ -89,7 +88,7 @@ class BugerBuilder extends Component {
                         ingredientAdded={this.props.onIngredientAdded}
                         ingredientRemoved={this.props.onIngredientRemoved}
                         disabled={disabledInfo}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler} />
                 </Aux>);
 
