@@ -6,10 +6,10 @@ import { createStore } from "redux";
 
 import './index.css';
 import App from './App';
-import reducer from "./store/reducers/burgerBuilder";
+import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import reportWebVitals from './reportWebVitals';
 
-const appReducer = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const appReducer = createStore(burgerBuilderReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <React.StrictMode>
