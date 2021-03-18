@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from '../../axios-orders';
 
 import * as burgerBuilderActions from "../../store/actions/index";
 
-import axios from "../../axios-orders";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import Burger from "../../components/Burger/Burger"
@@ -20,13 +20,6 @@ class BugerBuilder extends Component {
     };
 
     // componentDidMount() {
-    //     axios.get('/ingredients.json')
-    //         .then(res => {
-    //             this.setState({ ingredients: res.data });
-    //         })
-    //         .catch(err => {
-    //             this.setState({ error: true });
-    //         });
     // }
 
     updatePurchaseState(ingredients) {
@@ -87,9 +80,9 @@ class BugerBuilder extends Component {
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
 
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
+        // if (this.state.loading) {
+        //     orderSummary = <Spinner />;
+        // }
 
         return (
             <Aux>
