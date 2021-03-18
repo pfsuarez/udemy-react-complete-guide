@@ -2,18 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
 import './index.css';
 import App from './App';
 import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import reportWebVitals from './reportWebVitals';
 
-const appReducer = createStore(burgerBuilderReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const appStore = createStore(burgerBuilderReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={appReducer}>
+    <Provider store={appStore}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
