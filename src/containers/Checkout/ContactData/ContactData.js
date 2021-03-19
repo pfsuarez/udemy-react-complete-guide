@@ -118,17 +118,17 @@ class ContactData extends Component {
             orderData: formData
         };
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log("Order Response:", response);
-                this.props.history.push('/');
-            })
-            .catch(error => {
-                console.log("Order Error:", error)
-            })
-            .finally(() => {
-                this.setState({ loading: false });
-            });
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         console.log("Order Response:", response);
+        //         this.props.history.push('/');
+        //     })
+        //     .catch(error => {
+        //         console.log("Order Error:", error)
+        //     })
+        //     .finally(() => {
+        //         this.setState({ loading: false });
+        //     });
     }
 
     checkValidity(value, rules) {
