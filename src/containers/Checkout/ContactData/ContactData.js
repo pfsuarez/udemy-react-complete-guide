@@ -7,7 +7,7 @@ import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from './ContactData.module.css';
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
-import * as orderActions from '../../../store/actions/index';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
     state = {
@@ -212,7 +212,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrderBurger: (order) => dispatch(orderActions.purchaseBurger(order))
+        onOrderBurger: (order) => dispatch(actions.purchaseBurger(order))
     };
 };
 
