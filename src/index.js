@@ -13,7 +13,6 @@ import authReducer from "./store/reducers/auth";
 import reportWebVitals from './reportWebVitals';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//const rootReducer = combineReducers(burgerBuilderReducer, orderReducer);
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
   order: orderReducer,
