@@ -8,7 +8,7 @@ import classes from "./SideDrawer.module.css";
 const sideDrawer = props => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
 
-    if(props.open) {
+    if (props.open) {
         attachedClasses = [classes.SideDrawer, classes.Open];
     }
 
@@ -20,7 +20,7 @@ const sideDrawer = props => {
                     <Logo />
                 </div>
                 <nav>
-                    <NavigationItems />
+                    <NavigationItems isAuthenticated={props.isAuth} />
                 </nav>
             </div>
         </Aux>
