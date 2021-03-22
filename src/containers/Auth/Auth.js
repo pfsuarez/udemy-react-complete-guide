@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actions from '../../store/actions/index';
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.module.css";
 
 class Auth extends Component {
@@ -118,7 +119,7 @@ class Auth extends Component {
             })
         }
 
-        const form = <form onSubmit={this.submitHandler}>
+        let form = <form onSubmit={this.submitHandler}>
             {formElementsArray.map(formElement => {
                 return <Input
                     key={formElement.id}
@@ -133,8 +134,20 @@ class Auth extends Component {
             <Button btnType="Success" disabled={!this.state.formIsValid}>Submit</Button>
         </form>;
 
+        if (this.props.loading) {
+            form = <Spinner />
+        }
+
+        let errorMessage = null;
+        if (this.props.error) {
+            errorMessage = (
+                <p>{this.props.error.message}</p>
+            );
+        }
+
         return (
             <div className={classes.Auth}>
+                {errorMessage}
                 {form}
                 <Button
                     btnType="Danger"
@@ -148,7 +161,8 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        loading: state.auth.loading,
+        error: state.auth.error
     };
 };
 
