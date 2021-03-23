@@ -12,7 +12,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
-class BugerBuilder extends Component {
+export class BugerBuilder extends Component {
     state = {
         purchasing: false
     };
