@@ -1,6 +1,4 @@
-import axios from "axios";
 import * as actionTypes from "./actionTypes";
-import * as webApiKey from "../../firebaseWebApiKey";
 
 export const authSuccess = (idToken, userId) => {
     return {
@@ -59,20 +57,7 @@ export const setAuthRedirectPath = (path) => {
 }
 
 export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        const expirationDate = new Date(localStorage.getItem('expirationDate'));
-        const userId = new Date(localStorage.getItem('userId'));
-
-        if (!token) {
-            dispatch(logout());
-        } else {
-            if (expirationDate > new Date()) {
-                dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-            } else {
-                dispatch(logout());
-            }
-        }
+    return {
+        type: actionTypes.AUHT_CHECK_INITIAL_STATE
     };
 };
