@@ -14,7 +14,7 @@ import authReducer from "./store/reducers/auth";
 import reportWebVitals from './reportWebVitals';
 
 //import { logoutSaga } from "./store/sagas/auth";
-import { watchAuth } from "./store/sagas/index";
+import { watchAuth, wathBurgerBuilder } from "./store/sagas/index";
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
@@ -30,6 +30,7 @@ const appStore = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk
 
 //sagaMiddleware.run(logoutSaga);
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(wathBurgerBuilder);
 
 ReactDOM.render(
   <React.StrictMode>
