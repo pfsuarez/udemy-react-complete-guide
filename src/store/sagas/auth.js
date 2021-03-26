@@ -50,8 +50,8 @@ export function* authUserSaga(action) {
 export function* authCheckStateSaga(action) {
     const token = yield localStorage.getItem('token');
     const expirationDate = yield new Date(localStorage.getItem('expirationDate'));
-    const userId = yield new Date(localStorage.getItem('userId'));
-
+    const userId = yield localStorage.getItem('userId');
+debugger;
     if (!token) {
         yield put(actions.logout());
     } else {
