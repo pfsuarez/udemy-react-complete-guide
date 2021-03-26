@@ -8,12 +8,12 @@ const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
 
   useEffect(() => {
-    console.log("COMPONENT DIDMOUNT",userIngredients);
+    console.log("useEffect - Ingredients.js");
 
     fetch('https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients.json')
       .then(response => response.json())
       .then(responseData => {
-        console.log("RespData", responseData);
+        console.log("useEffect - Ingredients.js", responseData);
         const loadedIngredients = [];
 
         for (const key in responseData) {
@@ -24,12 +24,12 @@ const Ingredients = () => {
           })
         }
 
-        setUserIngredients(loadedIngredients);
+        //setUserIngredients(loadedIngredients);
       });
   }, []);
 
   useEffect(()=> {
-    console.log("COMPONENT DID UPDATE", userIngredients);
+    console.log("useEffect - Ingredients.js - userIngredients dependency", userIngredients);
   }, [userIngredients]);
 
   const addIngredientHandler = ingredient => {
@@ -54,12 +54,16 @@ const Ingredients = () => {
     setUserIngredients(prevIngredients => prevIngredients.filter(ing => ing.id !== id));
   };
 
+  const filteredIngredientsHandler = filteredIngredients => {
+    setUserIngredients(filteredIngredients);
+  };
+
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList ingredients={userIngredients} onRemoveItem={id => { removeIngredientHandler(id) }} />
       </section>
     </div>
