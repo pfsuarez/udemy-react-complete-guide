@@ -2,7 +2,7 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import * as webApiKey from "../../firebaseWebApiKey";
 
-const authSuccess = (idToken, userId) => {
+export const authSuccess = (idToken, userId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken,
@@ -10,14 +10,14 @@ const authSuccess = (idToken, userId) => {
     }
 };
 
-const authFail = (error) => {
+export const authFail = (error) => {
     return {
         type: actionTypes.AUTH_FAIL,
         error
     }
 };
 
-const authStart = () => {
+export const authStart = () => {
     return {
         type: actionTypes.AUTH_START
     }
@@ -43,32 +43,11 @@ export const checkAuthTimeout = (expirationTime) => {
 };
 
 export const auth = (email, password, isSignUp) => {
-    return dispatch => {
-        dispatch(authStart());
-        const authData = {
-            email,
-            password,
-            returnSecureToken: true
-        };
-
-        let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${webApiKey.FIREBASE_WEB_API_KEY}`;
-        if (!isSignUp) {
-            url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${webApiKey.FIREBASE_WEB_API_KEY}`;
-        }
-
-        axios.post(url,
-            authData)
-            .then(response => {
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-            .catch(err => {
-                dispatch(authFail(err.response.data.error));
-            });
+    return {
+        type: actionTypes.AUTH_USER,
+        email,
+        password,
+        isSignUp
     };
 };
 
