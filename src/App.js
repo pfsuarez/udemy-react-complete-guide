@@ -1,11 +1,9 @@
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Empty Template</h1>
-    </div>
-  );
-}
+import Ingredients from './components/Ingredients/Ingredients';
+
+const App = props => {
+  return <Ingredients />;
+};
 
 export default App;
