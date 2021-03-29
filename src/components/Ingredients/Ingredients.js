@@ -14,7 +14,6 @@ const ingredientReducer = (currentIngredients, action) => {
       return [...currentIngredients, action.ingredient];
     case 'DELETE':
       return currentIngredients.filter(x => x.id !== action.id);
-
     default:
       throw new Error('Should not get there!');
   }
@@ -22,8 +21,7 @@ const ingredientReducer = (currentIngredients, action) => {
 
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const { isLoading, error, data, reqExtra, reqIdentifier, sendRequest } = useHttp();
-
+  const { isLoading, error, data, reqExtra, reqIdentifier, sendRequest, clear } = useHttp();
 
   useEffect(() => {
     console.log("useEffect - Ingredients.js - userIngredients dependency", userIngredients);
@@ -43,7 +41,7 @@ const Ingredients = () => {
       JSON.stringify(ingredient),
       ingredient,
       'ADD_INGREDIENT');
-  }, []);
+  }, [sendRequest]);
 
   const removeIngredientHandler = useCallback(id => {
     sendRequest(`https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients/${id}.json`,
@@ -60,10 +58,6 @@ const Ingredients = () => {
     })
   }, []);
 
-  const clearErrorHandler = useCallback(() => {
-    // dispatchHttp({ type: 'CLEAR' });
-  }, []);
-
   const ingredientsList = useMemo(() => {
     return <IngredientList
       ingredients={userIngredients}
@@ -72,7 +66,7 @@ const Ingredients = () => {
 
   return (
     <div className="App">
-      {error && <ErrorModal onClose={clearErrorHandler}>{error}</ErrorModal>}
+      {error && <ErrorModal onClose={clear}>{error}</ErrorModal>}
 
       <IngredientForm onAddIngredient={addIngredientHandler} loading={isLoading} />
 
