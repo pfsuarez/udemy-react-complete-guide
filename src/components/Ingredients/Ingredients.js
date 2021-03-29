@@ -22,49 +22,35 @@ const ingredientReducer = (currentIngredients, action) => {
 
 const Ingredients = () => {
   const [userIngredients, dispatch] = useReducer(ingredientReducer, []);
-  const { isLoading, error, data, sendRequest } = useHttp();
+  const { isLoading, error, data, reqExtra, reqIdentifier, sendRequest } = useHttp();
 
 
   useEffect(() => {
     console.log("useEffect - Ingredients.js - userIngredients dependency", userIngredients);
-  }, [userIngredients]);
+
+    if(!isLoading && !error) {
+      if (reqIdentifier === 'REMOVE_IDENTIFIER') {
+        dispatch({ type: 'DELETE', id: reqExtra })
+      } else if(reqIdentifier === 'ADD_IDENTIFIER') {
+        dispatch({ type: 'ADD', ingredient: {id: data.name, ...reqExtra} });
+      }
+    }
+  }, [data, reqExtra, reqIdentifier, isLoading]);
 
   const addIngredientHandler = useCallback(ingredient => {
-    // dispatchHttp({ type: 'SEND' });
-    // fetch('https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients.json', {
-    //   method: 'POST',
-    //   body: JSON.stringify(ingredient),
-    //   headers: { 'Content-Type': 'application/json' }
-    // }).then(response => {
-    //   return response.json();
-    // }).then(responseData => {
-    //   dispatchHttp({ type: 'RESPONSE' })
-    //   dispatch({
-    //     type: 'ADD',
-    //     ingredient: {
-    //       id: responseData.name,
-    //       ...ingredient
-    //     }
-    //   });
-    // });
+    sendRequest('https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients.json',
+      'POST',
+      JSON.stringify(ingredient),
+      ingredient,
+      'ADD_INGREDIENT');
   }, []);
 
   const removeIngredientHandler = useCallback(id => {
-    sendRequest(`https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients/${id}.json`, 'DELETE');
-    // dispatchHttp({ type: 'SEND' });
-    // fetch(`https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients/${id}.json`, {
-    //   method: 'DELETE'
-    // })
-    //   .then(response => {
-    //     dispatchHttp({ type: 'RESPONSE' })
-    //     dispatch({
-    //       type: 'DELETE',
-    //       id: id
-    //     })
-    //   })
-    //   .catch(error => {
-    //     dispatchHttp({ type: 'ERROR', errorMessage: error.message });
-    //   });
+    sendRequest(`https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients/${id}.json`,
+      'DELETE',
+      null,
+      id,
+      'REMOVE_INGREDIENT');
   }, [sendRequest]);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
