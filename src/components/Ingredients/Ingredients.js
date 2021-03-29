@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useCallback } from 'react';
+import React, { useReducer, useEffect, useCallback, useMemo } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from "./IngredientList";
@@ -42,7 +42,7 @@ const Ingredients = () => {
     console.log("useEffect - Ingredients.js - userIngredients dependency", userIngredients);
   }, [userIngredients]);
 
-  const addIngredientHandler = ingredient => {
+  const addIngredientHandler = useCallback(ingredient => {
     dispatchHttp({ type: 'SEND' });
     fetch('https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients.json', {
       method: 'POST',
@@ -60,9 +60,9 @@ const Ingredients = () => {
         }
       });
     });
-  };
+  }, []);
 
-  const removeIngredientHandler = id => {
+  const removeIngredientHandler = useCallback(id => {
     dispatchHttp({ type: 'SEND' });
     fetch(`https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients/${id}.json`, {
       method: 'DELETE'
@@ -77,7 +77,7 @@ const Ingredients = () => {
       .catch(error => {
         dispatchHttp({ type: 'ERROR', errorMessage: error.message });
       });
-  };
+  }, []);
 
   const filteredIngredientsHandler = useCallback(filteredIngredients => {
     dispatch({
@@ -86,9 +86,15 @@ const Ingredients = () => {
     })
   }, []);
 
-  const clearErrorHandler = () => {
+  const clearErrorHandler = useCallback(() => {
     dispatchHttp({ type: 'CLEAR' });
-  };
+  }, []);
+
+  const ingredientsList = useMemo(() => {
+    return <IngredientList
+      ingredients={userIngredients}
+      onRemoveItem={id => { removeIngredientHandler(id) }} />
+  }, [userIngredients, removeIngredientHandler]);
 
   return (
     <div className="App">
@@ -98,7 +104,7 @@ const Ingredients = () => {
 
       <section>
         <Search onLoadIngredients={filteredIngredientsHandler} />
-        <IngredientList ingredients={userIngredients} onRemoveItem={id => { removeIngredientHandler(id) }} />
+        {ingredientsList}
       </section>
     </div>
   );
