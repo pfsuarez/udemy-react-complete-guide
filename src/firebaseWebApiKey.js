@@ -1,1 +1,1 @@
-export const FIREBASE_WEB_API_KEY = 'USE YOUR API HERE';
+export const FIREBASE_WEB_API_KEY = 'AIzaSyBX_6BvCxqu0RzttcPdQCNlz_2o3NxMIdk';
