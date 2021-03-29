@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import IngredientForm from './IngredientForm';
 import IngredientList from "./IngredientList";
@@ -6,27 +6,6 @@ import Search from './Search';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
-
-  useEffect(() => {
-    console.log("useEffect - Ingredients.js");
-
-    fetch('https://react-hooks-update-11-default-rtdb.firebaseio.com/ingredients.json')
-      .then(response => response.json())
-      .then(responseData => {
-        console.log("useEffect - Ingredients.js", responseData);
-        const loadedIngredients = [];
-
-        for (const key in responseData) {
-          loadedIngredients.push({
-            id: key,
-            title: responseData[key].title,
-            amount: responseData[key].amount
-          })
-        }
-
-        //setUserIngredients(loadedIngredients);
-      });
-  }, []);
 
   useEffect(()=> {
     console.log("useEffect - Ingredients.js - userIngredients dependency", userIngredients);
@@ -54,9 +33,9 @@ const Ingredients = () => {
     setUserIngredients(prevIngredients => prevIngredients.filter(ing => ing.id !== id));
   };
 
-  const filteredIngredientsHandler = filteredIngredients => {
+  const filteredIngredientsHandler = useCallback(filteredIngredients => {
     setUserIngredients(filteredIngredients);
-  };
+  }, []);
 
   return (
     <div className="App">

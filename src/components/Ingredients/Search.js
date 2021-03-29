@@ -26,7 +26,7 @@ const Search = React.memo(props => {
         })
       }
 
-      //props.onLoadIngredients(loadedIngredients);
+      props.onLoadIngredients(loadedIngredients);
     });
   }, [enteredFilter, onLoadIngredients]);
 
