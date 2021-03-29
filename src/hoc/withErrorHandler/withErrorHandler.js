@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Aux from "../Auxiliary/Auxiliary";
 import Modal from "../../components/UI/Modal/Modal";
@@ -36,8 +36,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 <WrappedComponent {...props} />
             </Aux>
         );
-
-    }
-}
+    };
+};
 
 export default withErrorHandler;
