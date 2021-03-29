@@ -1,41 +1,35 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import classes from "./Layout.module.css";
 import Aux from "../Auxiliary/Auxiliary";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
-class Layout extends Component {
-    state = {
-        showSideDrawer: false
-    };
+const Layout = props => {
+    const [showSideDrawer, setShowSideDrawer] = useState(false);
 
-    sideDrawerCloseHandler = () => {
-        this.setState({ showSideDrawer: false });
+    const sideDrawerCloseHandler = () => {
+        setShowSideDrawer(false);
     }
 
-    sideDrawerToggleHandler = () => {
-        this.setState(prevState => {
-            return { showSideDrawer: !prevState.showSideDrawer }
-        });
+    const sideDrawerToggleHandler = () => {
+        setShowSideDrawer(!showSideDrawer);
     }
 
-    render() {
-        return (
-            <Aux>
-                <Toolbar
-                    isAuth={this.props.isAuthenticated}
-                    drawerToggleClicked={this.sideDrawerToggleHandler} />
-                <SideDrawer
-                    isAuth={this.props.isAuthenticated}
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerCloseHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Aux>
-        );
-    }
+    return (
+        <Aux>
+            <Toolbar
+                isAuth={props.isAuthenticated}
+                drawerToggleClicked={sideDrawerToggleHandler} />
+            <SideDrawer
+                isAuth={props.isAuthenticated}
+                open={showSideDrawer}
+                closed={sideDrawerCloseHandler} />
+            <main className={classes.Content}>
+                {props.children}
+            </main>
+        </Aux>
+    );
 }
 
 const mapStateToProps = state => {
