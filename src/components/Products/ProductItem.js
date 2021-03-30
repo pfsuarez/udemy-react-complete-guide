@@ -8,7 +8,7 @@ import { useStore } from "../../hooks-store/store";
 const ProductItem = props => {
   //const toggleFav = useContext(ProductsContext).toggleFav;
 
-  const toggleFav = useStore()[1];
+  const toggleFav = useStore(false)[1];
 
   console.log("ID", props.id);
 
