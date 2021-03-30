@@ -3,9 +3,14 @@ import React, { useContext } from 'react';
 import Card from '../UI/Card';
 import './ProductItem.css';
 import { ProductsContext } from "../../context/products-context";
+import { useStore } from "../../hooks-store/store";
 
 const ProductItem = props => {
-  const toggleFav = useContext(ProductsContext).toggleFav;
+  //const toggleFav = useContext(ProductsContext).toggleFav;
+
+  const toggleFav = useStore()[1];
+
+  console.log("ID", props.id);
 
   return (
     <Card style={{ marginBottom: '1rem' }}>
@@ -14,7 +19,7 @@ const ProductItem = props => {
         <p>{props.description}</p>
         <button
           className={!props.isFav ? 'button-outline' : ''}
-          onClick={() => toggleFav(props.id)}
+          onClick={() => toggleFav('TOGGLE_FAV', props.id)}
         >
           {props.isFav ? 'Un-Favorite' : 'Favorite'}
         </button>
